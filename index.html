@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exégesis Heráldica — Bienestar Policial: Servicio y Cuidado</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ===========================================================
+     ARCHIVOS NECESARIOS (en carpeta img/):
+     - img/escudo-vector.png    → ilustración limpia (hero, intro, detalles)
+     - img/escudo-bienestar-policial.jpg   → foto del parche bordado (fondo del hero + producto final)
+     =========================================================== */
+
+  :root{
+    --navy: #0e2440;
+    --navy-deep: #081628;
+    --lime: #c9d94a;
+    --lime-soft: #e8edb8;
+    --cyan: #4fb3c9;
+    --cyan-soft: #e3f3f6;
+    --skin: #e3b08c;
+    --cream: #f7f4ec;
+    --paper: #fffdf8;
+    --ink: #1d2433;
+    --ink-soft: #52596b;
+    --rule: rgba(14, 36, 64, 0.12);
+    --max-w: 1180px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+
+  .eyebrow{
+    font-family:"Inter", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  h1, h2, h3{
+    font-family: "Playfair Display", serif;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  /* ---------------------------------------------------------
+     NAV
+  --------------------------------------------------------- */
+  .progress-rail{
+    position: fixed; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: rgba(14,36,64,0.06);
+    z-index: 50;
+  }
+  .progress-fill{
+    width: 100%; height: 0%;
+    background: linear-gradient(180deg, var(--lime), var(--cyan));
+    transition: height 0.1s linear;
+  }
+
+  .dot-nav{
+    position: fixed; right: 28px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 14px;
+    z-index: 50;
+  }
+  .dot-nav button{
+    width: 9px; height: 9px; border-radius: 50%;
+    border: 1.5px solid var(--navy);
+    background: transparent;
+    cursor: pointer; padding: 0;
+    opacity: 0.35;
+    transition: all .35s ease;
+  }
+  .dot-nav button.active{
+    background: var(--navy);
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  @media (max-width: 860px){ .dot-nav{ display:none; } }
+
+  /* ---------------------------------------------------------
+     HERO
+  --------------------------------------------------------- */
+  .hero{
+    position: relative;
+    min-height: 94vh;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    background: var(--navy-deep);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: url('img/escudo-bienestar-policial.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    filter: blur(26px) brightness(0.38) saturate(1.15);
+    transform: scale(1.18);
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(8,22,40,0.55) 0%, rgba(8,22,40,0.78) 55%, rgba(8,22,40,0.96) 100%);
+  }
+  .hero-content{
+    position: relative; z-index: 2;
+    text-align: center; color: var(--cream);
+    max-width: 760px; padding: 0 28px;
+  }
+  .hero-badge{
+    width: min(260px, 72vw);
+    margin: 0 auto 36px;
+    filter: drop-shadow(0 28px 40px rgba(0,0,0,0.55));
+  }
+  .hero-content .eyebrow{ color: var(--lime); justify-content:center; display:flex; }
+  .hero-content h1{
+    color: #fff;
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    margin: 14px 0 18px;
+    font-weight: 600; line-height: 1.15;
+  }
+  .hero-content p.lede{
+    font-style: italic; font-size: 1.15rem;
+    color: rgba(255,255,255,0.8);
+    max-width: 560px; margin: 0 auto;
+  }
+  .scroll-cue{
+    position: absolute; bottom: 34px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.55);
+    font-family: "Inter", sans-serif;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    z-index: 2; display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .scroll-cue span{
+    width:1px; height: 34px;
+    background: linear-gradient(180deg, var(--lime), transparent);
+    animation: pulse-line 2s ease-in-out infinite;
+  }
+  @keyframes pulse-line{ 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
+
+  /* ---------------------------------------------------------
+     LAYOUT
+  --------------------------------------------------------- */
+  main{ max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+  section.plate{
+    padding: 120px 0;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  section.plate.visible{ opacity: 1; transform: translateY(0); }
+  section.plate:last-of-type{ border-bottom: none; }
+
+  .plate-head{ display:flex; align-items: baseline; gap: 18px; margin-bottom: 48px; }
+  .plate-num{
+    font-family: "Playfair Display", serif; font-style: italic;
+    font-size: 1.1rem; color: var(--cyan);
+    border-bottom: 1px solid var(--cyan); padding-bottom: 2px;
+  }
+  .plate-title{
+    font-size:1.3rem; color:var(--ink-soft);
+    font-family:'Inter',sans-serif; font-weight:500; letter-spacing:0.01em;
+  }
+
+  .grid-2{
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 72px; align-items: center;
+  }
+  .grid-2.reverse .visual{ order: 2; }
+  .grid-2.reverse .text{ order: 1; }
+
+  @media (max-width: 880px){
+    .grid-2, .grid-2.reverse{ grid-template-columns: 1fr; }
+    .grid-2.reverse .visual, .grid-2.reverse .text{ order: unset; }
+    section.plate{ padding: 80px 0; }
+  }
+
+  /* ---------------------------------------------------------
+     DETALLE: zoom sobre el VECTOR
+  --------------------------------------------------------- */
+  .detail-frame{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 24px 50px -22px rgba(14,36,64,0.35);
+    background: #0a1c33;
+  }
+  .detail-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit: cover;
+    object-position: var(--op-x) var(--op-y);
+    transform: scale(var(--zoom));
+    transform-origin: var(--op-x) var(--op-y);
+    transition: transform 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .detail-frame:hover .detail-img{
+    transform: scale(calc(var(--zoom) * 1.08));
+  }
+  .detail-frame::after{
+    content:"";
+    position:absolute; inset:0;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    pointer-events:none;
+  }
+  .frame-tag{
+    position:absolute; bottom: 14px; left: 14px;
+    background: rgba(8,22,40,0.78);
+    color: var(--lime-soft);
+    font-family:"Inter", sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 2px;
+    backdrop-filter: blur(4px);
+    z-index: 3;
+  }
+
+  .locator{
+    position:absolute; bottom:14px; right:14px;
+    width:70px; aspect-ratio: 4/5;
+    border-radius:3px; overflow:hidden;
+    background:#fff;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.5), 0 0 0 1.5px rgba(255,255,255,0.95);
+    z-index: 3;
+  }
+  .locator img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit: contain;
+    background:#fff;
+  }
+  .locator-box{
+    position:absolute;
+    border: 1.5px solid var(--lime);
+    background: rgba(201,217,74,0.28);
+    box-shadow: 0 0 0 1px rgba(8,22,40,0.55);
+  }
+
+  .text h2{
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    margin-bottom: 20px; line-height: 1.25;
+  }
+  .text p{ color: var(--ink-soft); font-size: 1.05rem; margin: 0 0 16px; }
+  .text p:last-child{ margin-bottom:0; }
+  .text .lead-word{
+    font-family: "Playfair Display", serif; font-style: italic;
+    color: var(--navy); font-size: 1.15em;
+  }
+
+  blockquote.insight{
+    margin: 26px 0 0; padding: 16px 22px;
+    border-left: 3px solid var(--lime);
+    background: var(--paper);
+    font-style: italic; color: var(--navy); font-size: 0.98rem;
+  }
+
+  /* Intro: vector completo */
+  .intro-shield{
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 18px 8px;
+    box-shadow: 0 30px 60px -25px rgba(14,36,64,0.38);
+  }
+  .intro-shield img{ width:100%; }
+  .meta-row{ display:flex; gap: 36px; margin-top: 28px; flex-wrap: wrap; }
+  .meta-item{ font-family:"Inter", sans-serif; }
+  .meta-item span.k{
+    display:block; font-size: 0.65rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px;
+  }
+  .meta-item span.v{ font-family:"Playfair Display", serif; font-size: 1.05rem; color: var(--navy); }
+
+  /* Paleta */
+  .palette-strip{
+    display:grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    margin: 40px 0 36px; border-radius: 4px; overflow:hidden;
+    box-shadow: 0 20px 40px -24px rgba(14,36,64,0.35);
+  }
+  .swatch{ height: 130px; position: relative; display:flex; align-items: flex-end; padding: 12px; }
+  .swatch span{
+    font-family:"Inter", sans-serif; font-size: 0.62rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.85);
+  }
+  .swatch.navy{ background: var(--navy); }
+  .swatch.lime{ background: var(--lime); }
+  .swatch.cyan{ background: var(--cyan); }
+  .swatch.skin{ background: var(--skin); }
+  .swatch.white{ background: #f2f2f2; }
+  .swatch.lime span, .swatch.skin span, .swatch.white span{ color: rgba(14,36,64,0.75); }
+
+  .color-list{ display:grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; margin-top: 10px; }
+  .color-list .item{ display:flex; gap:14px; align-items:flex-start; }
+  .color-list .dot{ width: 13px; height:13px; border-radius: 50%; margin-top: 6px; flex-shrink:0; }
+  .color-list h4{ margin:0 0 4px; font-family:"Playfair Display", serif; font-size: 1rem; color: var(--navy); }
+  .color-list p{ margin:0; font-size: 0.92rem; color: var(--ink-soft); }
+  @media (max-width: 700px){
+    .palette-strip{ grid-template-columns: repeat(3,1fr); }
+    .color-list{ grid-template-columns: 1fr; }
+  }
+
+  /* Síntesis */
+  #sintesis{ text-align:center; }
+  #sintesis .plate-head{ justify-content:center; }
+  #sintesis .closing{ max-width: 760px; margin: 0 auto; }
+  #sintesis .closing h2{ font-size: clamp(1.8rem, 3.2vw, 2.5rem); margin-bottom: 28px; }
+  #sintesis .closing p{ color: var(--ink-soft); font-size: 1.1rem; }
+  .motto{
+    margin: 44px auto 0;
+    font-family: "Playfair Display", serif; font-style: italic;
+    font-size: 1.4rem; color: var(--navy);
+    position: relative; display:inline-block; padding: 0 10px;
+  }
+  .motto::before, .motto::after{ content: "—"; color: var(--lime); margin: 0 14px; }
+
+  /* ---------------------------------------------------------
+     PRODUCTO: el bordado a gran escala
+  --------------------------------------------------------- */
+  #producto{
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--navy-deep);
+    border-bottom: none;
+    color: #fff;
+  }
+  .producto-inner{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 110px 32px 90px;
+    text-align: center;
+  }
+  #producto .plate-head{ justify-content:center; margin-bottom: 28px; }
+  #producto .plate-num{ color: var(--lime); border-color: var(--lime); }
+  #producto .plate-title{ color: rgba(255,255,255,0.55); }
+  #producto h2.prod-title{
+    color:#fff;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    margin: 0 auto 18px;
+    max-width: 640px;
+  }
+  #producto p.prod-lead{
+    color: rgba(255,255,255,0.62);
+    font-style: italic;
+    font-size: 1.12rem;
+    max-width: 560px;
+    margin: 0 auto 56px;
+  }
+  .producto-shot{
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .producto-shot img{
+    width: 100%;
+    border-radius: 10px;
+    box-shadow:
+      0 40px 80px -20px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .producto-caption{
+    margin-top: 28px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+  .producto-caption span{
+    display:block;
+    margin-top: 8px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.82rem;
+  }
+
+  footer{
+    background: #050e18; color: rgba(255,255,255,0.45);
+    text-align:center; padding: 46px 20px;
+    font-family:"Inter", sans-serif; font-size: 0.78rem; letter-spacing: 0.04em;
+  }
+  footer strong{ color: var(--lime-soft); }
+
+</style>
+</head>
+<body>
+
+<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+<nav class="dot-nav" id="dotNav">
+  <button data-target="intro" aria-label="Introducción"></button>
+  <button data-target="forma" aria-label="Forma"></button>
+  <button data-target="albatros" aria-label="Albatros"></button>
+  <button data-target="caduceo" aria-label="Caduceo"></button>
+  <button data-target="cruz" aria-label="Cruz"></button>
+  <button data-target="mano" aria-label="Mano"></button>
+  <button data-target="colores" aria-label="Colores"></button>
+  <button data-target="sintesis" aria-label="Síntesis"></button>
+  <button data-target="producto" aria-label="El bordado"></button>
+</nav>
+
+<!-- ============================= HERO ============================= -->
+<header class="hero">
+  <div class="hero-content">
+    <img class="hero-badge" src="img/escudo-vector.png" alt="Escudo de Bienestar Policial">
+    <p class="eyebrow">Análisis Heráldico · Lectura Simbólica</p>
+    <h1>Bienestar Policial<br>Servicio y Cuidado</h1>
+    <p class="lede">Exégesis de un emblema que inscribe el cuidado de la vida en el corazón de la institución policial.</p>
+  </div>
+  <div class="scroll-cue"><span></span>Descienda</div>
+</header>
+
+<main>
+
+  <!-- ============================= INTRO ============================= -->
+  <section class="plate" id="intro">
+    <div class="plate-head">
+      <span class="plate-num">I</span>
+      <h2 class="plate-title">Presentación del emblema</h2>
+    </div>
+    <div class="grid-2">
+      <div class="visual">
+        <div class="intro-shield">
+          <img src="img/escudo-vector.png" alt="Vista completa del escudo Bienestar Policial">
+        </div>
+        <div class="meta-row">
+          <div class="meta-item"><span class="k">Forma</span><span class="v">Escudo apuntado</span></div>
+          <div class="meta-item"><span class="k">Origen</span><span class="v">Arte vectorial</span></div>
+          <div class="meta-item"><span class="k">Lema</span><span class="v">Servicio y Cuidado</span></div>
+        </div>
+      </div>
+      <div class="text">
+        <h2>Un emblema para la salud dentro del orden</h2>
+        <p>El escudo de <span class="lead-word">Bienestar Policial</span> no narra el ejercicio de la fuerza, sino el reverso necesario de toda institución que la ejerce: el cuidado de quienes la sostienen. Su composición —ave, caduceo, cruz y mano— construye una iconografía médica clásica enmarcada en los colores corporativos de la autoridad.</p>
+        <p>Leer este blasón es reconocer que la vocación de servicio tiene, en su raíz, una ética de la protección de la vida: la del ciudadano, pero también —y de manera explícita aquí— la del propio servidor público.</p>
+        <blockquote class="insight">El escudo desplaza el centro simbólico de la autoridad hacia la compasión, sin renunciar a la solemnidad del blasón institucional.</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= FORMA ============================= -->
+  <section class="plate" id="forma">
+    <div class="plate-head">
+      <span class="plate-num">II</span>
+      <h2 class="plate-title">La forma y el borde</h2>
+    </div>
+    <div class="grid-2 reverse">
+      <div class="visual detail-frame" style="--op-x:50%; --op-y:6%; --zoom:2.55;">
+        <img class="detail-img" src="img/escudo-vector.png" alt="Detalle de la orla superior y el rótulo Bienestar Policial">
+        <span class="frame-tag">Detalle · Orla y rótulo</span>
+        <div class="locator">
+          <img src="img/escudo-vector.png" alt="">
+          <span class="locator-box" style="left:8%; top:2%; width:84%; height:16%;"></span>
+        </div>
+      </div>
+      <div class="text">
+        <h2>El blasón como memoria institucional</h2>
+        <p>La silueta adopta la tradicional forma de escudo apuntado, heredera directa de la heráldica policial clásica. Esta elección no es ornamental: inscribe a la unidad de bienestar dentro de la misma familia visual que el resto de los cuerpos de la institución, afirmando pertenencia antes que diferencia.</p>
+        <p>El <span class="lead-word">ribete verde-lima</span> que recorre el perímetro introduce, sin embargo, una nota distintiva. Frente al azul profundo del campo —color de disciplina y jerarquía—, el lima vibra como color de vida, de renovación biológica y de alerta sanitaria, anticipando desde el contorno mismo la naturaleza del contenido que enmarca.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ALBATROS ============================= -->
+<section class="plate" id="albatros">
+  <div class="plate-head">
+    <span class="plate-num">III</span>
+    <h2 class="plate-title">El ave en vuelo</h2>
+  </div>
+  <div class="grid-2">
+    <div class="visual detail-frame" style="--op-x:50%; --op-y:27%; --zoom:3.1;">
+      <img class="detail-img" src="img/escudo-vector.png" alt="Detalle del albatros con las alas desplegadas">
+      <span class="frame-tag">Detalle · Albatros superior</span>
+      <div class="locator">
+        <img src="img/escudo-vector.png" alt="">
+        <span class="locator-box" style="left:10%; top:20%; width:80%; height:14%;"></span>
+      </div>
+    </div>
+    <div class="text">
+      <h2>Vigilancia que planea desde lo alto</h2>
+      <p>Sobre el emblema médico se extiende, con las alas desplegadas en diagonal, un <span class="lead-word">albatros</span> blanco de vuelo rasante. Su posición no es incidental: ocupa el registro superior del escudo, el lugar heráldico reservado tradicionalmente a lo trascendente o lo aspiracional.</p>
+      <p>El albatros es, por naturaleza, el ave de mayor envergadura entre las marinas, capaz de planear miles de kilómetros sin apenas batir las alas, sosteniéndose en el aire mediante una resistencia silenciosa y una economía de esfuerzo admirables. Como símbolo, evoca vigilancia sostenida, entereza ante la adversidad y una libertad de movimiento que no requiere urgencia para ser eficaz. Su blancura, libre de contorno duro, la convierte en el elemento más etéreo de la composición: la mirada que sobrevuela —y legitima— el acto clínico representado debajo.</p>
+      <blockquote class="insight">El albatros no actúa: observa, resiste y acompaña desde la altura el gesto de cuidado que ocurre bajo sus alas.</blockquote>
+    </div>
+  </div>
+</section>
+
+  <!-- ============================= CADUCEO ============================= -->
+  <section class="plate" id="caduceo">
+    <div class="plate-head">
+      <span class="plate-num">IV</span>
+      <h2 class="plate-title">La vara y la serpiente</h2>
+    </div>
+    <div class="grid-2 reverse">
+      <div class="visual detail-frame" style="--op-x:50%; --op-y:52%; --zoom:3.8;">
+        <img class="detail-img" src="img/escudo-vector.png" alt="Detalle del bastón de Esculapio y la serpiente">
+        <span class="frame-tag">Detalle · Bastón de Esculapio</span>
+        <div class="locator">
+          <img src="img/escudo-vector.png" alt="">
+          <span class="locator-box" style="left:42%; top:40%; width:16%; height:28%;"></span>
+        </div>
+      </div>
+      <div class="text">
+        <h2>El símbolo universal de la medicina</h2>
+        <p>En el eje vertical del escudo se yergue el <span class="lead-word">Bastón de Esculapio</span>: una vara recta coronada por un pomo esférico, alrededor de la cual se enrosca una serpiente blanca de cabeza erguida, flanqueada por formas curvas que evocan el movimiento sinuoso de su cuerpo o alas estilizadas en gesto de ascenso.</p>
+        <p>Desde la Grecia clásica, este símbolo condensa la dualidad esencial del arte de curar: la serpiente, criatura que muda de piel, representa la renovación, la transformación del veneno en remedio y el conocimiento que se adquiere mirando de cerca el mal para vencerlo. Su blancura la despoja de connotación amenazante y la convierte en signo puro de competencia clínica.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CRUZ ============================= -->
+  <section class="plate" id="cruz">
+    <div class="plate-head">
+      <span class="plate-num">V</span>
+      <h2 class="plate-title">La cruz celeste</h2>
+    </div>
+    <div class="grid-2">
+      <div class="visual detail-frame" style="--op-x:50%; --op-y:56%; --zoom:2.35;">
+        <img class="detail-img" src="img/escudo-vector.png" alt="Detalle de la cruz azul de fondo">
+        <span class="frame-tag">Detalle · Cruz sanitaria</span>
+        <div class="locator">
+          <img src="img/escudo-vector.png" alt="">
+          <span class="locator-box" style="left:28%; top:42%; width:44%; height:28%;"></span>
+        </div>
+      </div>
+      <div class="text">
+        <h2>El campo que sostiene al símbolo médico</h2>
+        <p>Detrás del bastón se despliega una cruz de brazos iguales en un azul celeste luminoso, deliberadamente distinto del azul marino del campo general. Esta diferenciación cromática es una decisión exegética clave: la cruz sanitaria necesita separarse visualmente de la identidad policial para afirmar su propia autonomía simbólica —la salud como dominio con lenguaje propio dentro de la institución.</p>
+        <p>La cruz, signo universal de auxilio médico reconocido desde el siglo XIX, actúa aquí como <span class="lead-word">soporte arquitectónico</span>: todo el aparato médico —vara, serpiente, mano— se organiza y gana legibilidad gracias a este fondo que funciona como marco dentro del marco, una capilla dentro del templo heráldico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= MANO ============================= -->
+  <section class="plate" id="mano">
+    <div class="plate-head">
+      <span class="plate-num">VI</span>
+      <h2 class="plate-title">La mano que sostiene</h2>
+    </div>
+    <div class="grid-2 reverse">
+      <div class="visual detail-frame" style="--op-x:50%; --op-y:78%; --zoom:2.7;">
+        <img class="detail-img" src="img/escudo-vector.png" alt="Detalle de las manos que sostienen el emblema médico">
+        <span class="frame-tag">Detalle · Manos y base</span>
+        <div class="locator">
+          <img src="img/escudo-vector.png" alt="">
+          <span class="locator-box" style="left:16%; top:68%; width:68%; height:18%;"></span>
+        </div>
+      </div>
+      <div class="text">
+        <h2>El gesto humano del cuidado</h2>
+        <p>En la base de la composición, una mano abierta —de tono carne, cóncava y receptiva— eleva y sostiene el conjunto médico completo. Es el único elemento antropomorfo explícito del escudo, y por ello concentra el mensaje más directo: la medicina y la institución no son abstracciones, sino un acto humano concreto de sostener al otro.</p>
+        <p>La mano no empuña ni señala: <span class="lead-word">ofrece</span>. Su gesto evoca tanto la entrega del profesional de la salud como la vulnerabilidad del policía que recibe cuidado. En este doble sentido reside la fuerza poética del emblema: la misma mano que socorre es, simbólicamente, la mano que también necesita ser socorrida.</p>
+        <blockquote class="insight">La composición entera reposa, literalmente, sobre una palma abierta: el cuidado como fundamento, no como accesorio.</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= COLORES ============================= -->
+  <section class="plate" id="colores">
+    <div class="plate-head">
+      <span class="plate-num">VII</span>
+      <h2 class="plate-title">Lectura cromática</h2>
+    </div>
+
+    <div class="palette-strip">
+      <div class="swatch navy"><span>Azul marino</span></div>
+      <div class="swatch lime"><span>Verde lima</span></div>
+      <div class="swatch cyan"><span>Celeste</span></div>
+      <div class="swatch white"><span>Blanco</span></div>
+      <div class="swatch skin"><span>Piel</span></div>
+    </div>
+
+    <div class="color-list">
+      <div class="item">
+        <span class="dot" style="background:var(--navy)"></span>
+        <div><h4>Azul marino — campo</h4><p>Disciplina, jerarquía, noche vigilada; el color matriz de toda la identidad policial, aquí transformado en lienzo de contención para un mensaje de cuidado.</p></div>
+      </div>
+      <div class="item">
+        <span class="dot" style="background:var(--lime)"></span>
+        <div><h4>Verde lima — borde</h4><p>Vitalidad y renovación; frecuentemente asociado a programas de salud ocupacional y bienestar, distingue esta unidad dentro del árbol institucional.</p></div>
+      </div>
+      <div class="item">
+        <span class="dot" style="background:var(--cyan)"></span>
+        <div><h4>Celeste — cruz</h4><p>Serenidad clínica y cielo abierto; separa semánticamente lo sanitario de lo estrictamente policial dentro de un mismo campo visual.</p></div>
+      </div>
+      <div class="item">
+        <span class="dot" style="background:#f2f2f2; box-shadow:0 0 0 1px var(--rule)"></span>
+        <div><h4>Blanco — ave y vara</h4><p>Pureza de intención, neutralidad del saber médico y ligereza del vuelo; unifica los elementos simbólicos de mayor carga trascendente.</p></div>
+      </div>
+      <div class="item">
+        <span class="dot" style="background:var(--skin)"></span>
+        <div><h4>Tono piel — mano</h4><p>Humaniza el conjunto; introduce la carne y el tacto en un repertorio de símbolos abstractos, recordando que el cuidado es siempre interpersonal.</p></div>
+      </div>
+      <div class="item">
+        <span class="dot" style="background:#fff; box-shadow:0 0 0 1px var(--rule)"></span>
+        <div><h4>Blanco — tipografía y orla</h4><p>Las leyendas «Bienestar Policial» y «Servicio y Cuidado» en blanco sobre azul garantizan máxima legibilidad y solemnidad epigráfica.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SÍNTESIS ============================= -->
+  <section class="plate" id="sintesis">
+    <div class="plate-head">
+      <span class="plate-num">VIII</span>
+      <h2 class="plate-title">Síntesis</h2>
+    </div>
+    <div class="closing">
+      <h2>Un escudo que invierte la mirada</h2>
+      <p>Leído de arriba hacia abajo, el emblema de Bienestar Policial describe un recorrido simbólico completo: del vuelo libre del albatros —la vigilancia que se desea sostener en el tiempo— se desciende al conocimiento médico encarnado en la serpiente y la cruz, para finalmente reposar en la mano humana que todo lo sostiene...</p>
+      <p>Frente a los escudos que celebran la fuerza, el orden o el territorio, este emblema celebra la fragilidad reconocida: afirma que cuidar al que cuida es también, y quizás sobre todo, una forma de servicio.</p>
+      <div class="motto">Servicio y Cuidado</div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================= PRODUCTO: EL BORDADO ============================= -->
+<section class="plate" id="producto">
+  <div class="producto-inner">
+    <div class="plate-head">
+      <span class="plate-num">IX</span>
+      <h2 class="plate-title">Del trazo al paño</h2>
+    </div>
+    <h2 class="prod-title">El emblema hecho materia</h2>
+    <p class="prod-lead">Cuando el símbolo abandona la pantalla y se hunde en el hilo, el cuidado deja de ser idea y se vuelve cosa que se lleva sobre el pecho.</p>
+    <div class="producto-shot">
+      <img src="img/escudo-bienestar-policial.jpg" alt="Parche bordado de Bienestar Policial — producto final">
+    </div>
+    <p class="producto-caption">
+      Bordado institucional · Bienestar Policial
+      <span>El destino físico del diseño: textura, relieve y presencia.</span>
+    </p>
+  </div>
+</section>
+
+<footer>
+  Exégesis heráldica elaborada con fines interpretativos · <strong>Bienestar Policial</strong> — Servicio y Cuidado
+</footer>
+
+<script>
+  const plates = document.querySelectorAll('.plate');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+  plates.forEach(p => observer.observe(p));
+
+  const progressFill = document.getElementById('progressFill');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressFill.style.height = (scrollTop / docHeight) * 100 + '%';
+  });
+
+  const dots = document.querySelectorAll('.dot-nav button');
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const spySections = Array.from(dots).map(d => document.getElementById(d.dataset.target));
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        dots.forEach(d => d.classList.toggle('active', d.dataset.target === id));
+      }
+    });
+  }, { threshold: 0.45 });
+  spySections.forEach(s => spyObserver.observe(s));
+</script>
+
+</body>
+</html>

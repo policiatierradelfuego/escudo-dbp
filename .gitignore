@@ -1,0 +1,12 @@
+# Ignorar todo por defecto en el repositorio
+*
+
+# Permitir archivos necesarios y de configuración git
+!.gitignore
+!README.md
+!index.html
+
+# Permitir carpeta img/ y todos sus archivos contenidos
+!img/
+!img/*
+!img/**/*
